@@ -1,0 +1,31 @@
+import os
+import shutil
+folder_path = input("Enter the full path of the folder to organize: ")
+if not os.path.exists(folder_path):
+    print("The folder does not exist. Please check the path.")
+    exit()
+def get_folder_name(extension):
+    extension = extension.lower()
+    if extension in ['.jpg', '.jpeg', '.png', '.gif']:
+        return "Images"
+    elif extension in ['.pdf', '.docx', '.txt']:
+        return "Documents"
+    elif extension in ['.mp3', '.wav']:
+        return "Music"
+    elif extension in ['.mp4', '.avi']:
+        return "Videos"
+    elif extension in ['.zip', '.rar']:
+        return "Archives"
+    else:
+        return "Others"
+for filename in os.listdir(folder_path):
+    file_path = os.path.join(folder_path, filename)
+    if os.path.isfile(file_path):
+        _, extension = os.path.splitext(filename)
+        folder_name = get_folder_name(extension)
+        target_folder = os.path.join(folder_path, folder_name)
+        if not os.path.exists(target_folder):
+            os.mkdir(target_folder)
+        shutil.move(file_path, os.path.join(target_folder, filename))
+        print(f"Moved {filename} to {folder_name}/")
+print("Organization complete!")
