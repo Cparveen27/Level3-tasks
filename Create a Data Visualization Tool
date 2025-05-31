@@ -1,0 +1,26 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+df = sns.load_dataset("iris")
+print("First 5 rows of the dataset:")
+print(df.head())
+print("\nChoose a plot type:")
+print("1 - Scatter plot")
+print("2 - Histogram")
+print("3 - Box plot")
+choice = input("Enter 1, 2, or 3: ")
+if choice == "1":
+    fig = px.scatter(df, x="sepal_length", y="sepal_width", color="species",
+                     title="Sepal Length vs Width by Species")
+    fig.show()
+elif choice == "2":
+    sns.histplot(data=df, x="petal_length", kde=True)
+    plt.title("Histogram of Petal Length")
+    plt.show()
+elif choice == "3":
+    fig = px.box(df, x="species", y="petal_length", color="species",
+                 title="Box Plot of Petal Length by Species")
+    fig.show()
+else:
+    print("Invalid choice.")
