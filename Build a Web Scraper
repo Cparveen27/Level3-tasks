@@ -1,0 +1,12 @@
+import requests
+from bs4 import BeautifulSoup
+url = input("Enter the website URL (e.g., https://example.com): ")
+response = requests.get(url)
+if response.status_code == 200:
+    soup = BeautifulSoup(response.text, 'html.parser')
+    headings = soup.find_all(['h1', 'h2', 'h3'])
+    print("\nHeadings found on the page:")
+    for heading in headings:
+        print(heading.text.strip())
+else:
+    print("Failed to retrieve the web page. Please check the URL.")
